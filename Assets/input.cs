@@ -32,12 +32,12 @@ public class input : MonoBehaviour {
             }
             if (Mathf.Abs(pressedLoc.x - transform.position.x) > xDifferenceActivation)
             {
-                player.run(Mathf.Sign(pressedLoc.x - transform.position.x));
+                player.move(Mathf.Sign(pressedLoc.x - transform.position.x));
             }
         }
 
 		if(Input.GetAxis ("Horizontal") != 0)
-		player.run(Input.GetAxis ("Horizontal"));
+		player.move(Input.GetAxis ("Horizontal"));
 		
 		if (Input.GetAxis ("Jump") > 0)
 			player.jump ();

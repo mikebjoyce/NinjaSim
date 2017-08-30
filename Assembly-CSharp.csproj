@@ -46,6 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Menus\PlayerReadySlot.cs" />
+     <Compile Include="Assets\Scripts\Menus\RoundSetup.cs" />
+     <Compile Include="Assets\Scripts\Menus\SceneTransition.cs" />
      <Compile Include="Assets\Scripts\animControl.cs" />
      <Compile Include="Assets\Scripts\blockScript.cs" />
      <Compile Include="Assets\Scripts\blockZone.cs" />

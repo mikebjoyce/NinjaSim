@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerScript : MonoBehaviour {
 	public Collider2D groundCheck;
 	public Collider2D grabCheck;
+	public Collider2D grabCheckFlip;
 	public Collider2D crushCheck;
 
 	public Rigidbody2D body;
@@ -22,16 +23,21 @@ public class playerScript : MonoBehaviour {
 	
 	// Update is called once per frameanimCnt
 	void Update () {
-		if (isGrabbing () && !isGrounded()) { //the slowing effect of grabbing
-			body.AddForce (new Vector2 (0, 25) * Time.deltaTime);
+		if (isGrabbing () && !isGrounded() && body.velocity.y <= 0) { //the slowing effect of grabbing
+			body.AddForce (new Vector2 (0, 450) * Time.deltaTime);
+			animCnt.setGrab(true);
+		}else{
+			animCnt.setGrab(false);
 		}
 		animCnt.setRunSpeed (runSpeed ());
 	}
 
+	void LateUpdate(){
+		animCnt.setGrounded (isGrounded());
+	}
 
-	public void run(float direction){
-		Debug.Log (isGrounded ());
-		if (isGrounded ()) {
+
+	public void move(float direction){
 			float d = 0;
 			if (direction < 0)
 				d = -1;
@@ -43,7 +49,6 @@ public class playerScript : MonoBehaviour {
 			body.AddForce (new Vector2 (300, 0) * Time.deltaTime * facingDir);
 			Debug.Log ("here");
 			animCnt.setMove (direction);
-		}
 	}
 
 	public void jump(){
@@ -53,10 +58,9 @@ public class playerScript : MonoBehaviour {
 			animCnt.setJump ();
 			Debug.Log ("here2");
 		}else if(isGrabbing()){
-			body.AddForce (new Vector2 (facingDir * -1 * 25, 30));
+			body.AddForce (new Vector2 (facingDir * -1 * 15, 15));
 			Debug.Log ("here3");
 		}
-
 	}
 
 	public void flip(){
@@ -77,7 +81,13 @@ public class playerScript : MonoBehaviour {
 	}
 
 	public bool isGrabbing(){
-		return grabCheck.IsTouchingLayers (LayerMask.GetMask("Terrain")) && !isGrounded();
+		bool output = false;
+		if(facingDir == -1)
+			output = grabCheck.IsTouchingLayers (LayerMask.GetMask("Terrain"));
+		else
+			output = grabCheckFlip.IsTouchingLayers (LayerMask.GetMask("Terrain"));
+		animCnt.setGrab (output);
+		return output;
 	}
 
 	public float runSpeed(){
