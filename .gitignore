@@ -21,6 +21,10 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -48,7 +52,6 @@ artifacts/
 *_p.c
 *_i.h
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -74,6 +77,8 @@ _Chutzpah*
 
 # Visual C++ cache files
 ipch/
+*.sln
+*vsproj
 *.aps
 *.ncb
 *.opendb
