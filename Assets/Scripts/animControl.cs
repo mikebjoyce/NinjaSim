@@ -50,6 +50,7 @@ public class animControl : MonoBehaviour {
 		Vector3 temp = transform.localScale;
 		//transform.lossyScale.Set (temp.x * -1, temp.y, temp.z);
 		transform.localScale = new Vector3 (temp.x * -1, temp.y, temp.z);
+
 	}
 
 	public void setGrounded(bool b){

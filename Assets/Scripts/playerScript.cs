@@ -23,7 +23,7 @@ public class playerScript : MonoBehaviour {
 	
 	// Update is called once per frameanimCnt
 	void Update () {
-		if (isGrabbing () && !isGrounded() && body.velocity.y <= 0) { //the slowing effect of grabbing
+		if (isGrabbing () && !isGrounded() && body.velocity.y < 0) { //the slowing effect of grabbing
 			body.AddForce (new Vector2 (0, 450) * Time.deltaTime);
 			animCnt.setGrab(true);
 		}else{
@@ -38,6 +38,7 @@ public class playerScript : MonoBehaviour {
 
 
 	public void move(float direction){
+		if (isGrounded()) {
 			float d = 0;
 			if (direction < 0)
 				d = -1;
@@ -46,20 +47,20 @@ public class playerScript : MonoBehaviour {
 			Debug.Log (d + " " + facingDir);
 			if (d != facingDir)
 				flip ();
-			body.AddForce (new Vector2 (300, 0) * Time.deltaTime * facingDir);
+			body.AddForce (new Vector2 (1200, 0) * Time.deltaTime * facingDir);
 			Debug.Log ("here");
 			animCnt.setMove (direction);
+		}
 	}
 
 	public void jump(){
 		Debug.Log (isGrounded ());
 		if (isGrounded ()) {
-			body.AddForce (new Vector2 (0, 30));
+			body.AddForce (new Vector2 (0, 100));
 			animCnt.setJump ();
-			Debug.Log ("here2");
 		}else if(isGrabbing()){
-			body.AddForce (new Vector2 (facingDir * -1 * 15, 15));
-			Debug.Log ("here3");
+			body.AddForce (new Vector2 (facingDir * -1 * 20, 100));
+			animCnt.setJump ();
 		}
 	}
 
@@ -67,6 +68,7 @@ public class playerScript : MonoBehaviour {
 		Debug.Log ("flip " + facingDir);
 		facingDir *= -1;
 		animCnt.flip ();
+		animCnt.setGrab (false);
 	}
 
 	public void die(){
@@ -76,7 +78,7 @@ public class playerScript : MonoBehaviour {
 
 	public bool isGrounded(){
 		//Debug.Log (LayerMask.LayerToName (8));
-		Debug.Log(groundCheck.IsTouchingLayers (LayerMask.GetMask("Terrain")));
+		//Debug.Log(groundCheck.IsTouchingLayers (LayerMask.GetMask("Terrain")));
 		return groundCheck.IsTouchingLayers (LayerMask.GetMask("Terrain"));
 	}
 
@@ -86,7 +88,6 @@ public class playerScript : MonoBehaviour {
 			output = grabCheck.IsTouchingLayers (LayerMask.GetMask("Terrain"));
 		else
 			output = grabCheckFlip.IsTouchingLayers (LayerMask.GetMask("Terrain"));
-		animCnt.setGrab (output);
 		return output;
 	}
 
