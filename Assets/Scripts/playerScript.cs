@@ -16,10 +16,10 @@ public class playerScript : MonoBehaviour {
 
 	//Jump Limiters
 	private float grabJump = 0;
-	private float grabJumpDelay = 2f;
-	private float grabAfterGrabJump = 0.5f;
+	private float grabJumpDelay = 0.75f;
+	private float grabAfterGrabJump = 0.1f;
 	private float groundJump = 0;
-	private float groundJumpDelay = 1f;
+	private float groundJumpDelay = 0.2f;
 
 	//internal Vars
 	private float facingDir = -1;
@@ -28,17 +28,17 @@ public class playerScript : MonoBehaviour {
 	//gameplay vars
 	private float horizontalJumpRatio = 0.5f;
 	private float verticalJumpRatio = 1;
-	private float jumpForce = 300;
-	private float runForce = 300;
+	private float jumpForce = 375;
+	private float runForce = 450;
 
 	// Use this for initialization
 	void Start () {
 		
 	}
-	
+
 	// Update is called once per frameanimCnt
 	void Update () {
-		if (isGrabbing () && !isGrounded() && body.velocity.y < 0) { //the slowing effect of grabbing
+		if (isGrabbing () && !isGrounded() && body.velocity.y < 0.5f) { //the slowing effect of grabbing
 			body.AddForce (new Vector2 (0, 455) * Time.deltaTime);
 			animCnt.setGrab (true);
 		}else if(isBackGrabbing() && !isGrounded() && body.velocity.y < 0){
@@ -68,7 +68,7 @@ public class playerScript : MonoBehaviour {
 			//Debug.Log (d + " " + facingDir);
 			if (d != facingDir && d != 0)
 				flip ();
-			body.AddForce (new Vector2 (600, 0) * Time.deltaTime * facingDir);
+			body.AddForce (new Vector2 (runForce, 0) * Time.deltaTime * facingDir);
 			//Debug.Log ("here");
 			animCnt.setMove (direction);
 		} else if (isGrabbing ()) {
