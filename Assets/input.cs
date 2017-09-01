@@ -28,18 +28,20 @@ public class input : MonoBehaviour {
             Vector2 pressedLoc = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (pressedLoc.y - transform.position.y > jumpActivationTolerance)
             {
-                player.jump();
+				player.jump(pressedLoc - (Vector2)transform.position);
+				// old player.jump ();
             }
             if (Mathf.Abs(pressedLoc.x - transform.position.x) > xDifferenceActivation)
             {
-                player.move(Mathf.Sign(pressedLoc.x - transform.position.x));
+				player.move(pressedLoc - (Vector2)transform.position);
             }
         }
 
 		if(Input.GetAxis ("Horizontal") != 0)
-		player.move(Input.GetAxis ("Horizontal"));
+			player.move(new Vector2 (Input.GetAxis ("Horizontal"),Input.GetAxis("jump")));
 		
 		if (Input.GetAxis ("Jump") > 0)
-			player.jump ();
+			player.jump (new Vector2(Input.GetAxis ("Horizontal"), Input.GetAxis ("Jump")));
+		// old player.jump ();
 	}
 }
