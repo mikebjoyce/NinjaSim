@@ -28,7 +28,7 @@ public class playerScript : MonoBehaviour {
 	private float verticalJumpRatio = 1;
 	private float jumpForce = 375;
 	private float runForce = 450;
-	private float flyForce = 300;
+	private float flyForce = 350;
 
 	// Use this for initialization
 	void Start () {
@@ -79,7 +79,7 @@ public class playerScript : MonoBehaviour {
 				grabJump = Time.time;
 			}
 		} else {
-			body.AddForce (new Vector2 (flyForce*dir.normalized.x,0) * Time.deltaTime);
+			body.AddForce (new Vector2 (flyForce*dir.normalized.x, flyForce * dir.normalized.y * .2f) * Time.deltaTime);
 		}
 	}
 

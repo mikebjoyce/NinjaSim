@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class input : MonoBehaviour {
 	public playerScript player;
-    float jumpActivationTolerance = .3f; //Pressing +/- Y from horzonital to cause jump
+    float jumpActivationTolerance = .4f; //Pressing +/- Y from horzonital to cause jump
     float xDifferenceActivation = .1f; //pressing less than that x away wont trigger movement to sides
 
 	// Use this for initialization

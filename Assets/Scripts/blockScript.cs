@@ -7,15 +7,7 @@ public class blockScript : MonoBehaviour {
     public bool settled = false;
     public Rigidbody2D body;
 	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	public float getYVelo(){
 		return body.velocity.y;
 	}
