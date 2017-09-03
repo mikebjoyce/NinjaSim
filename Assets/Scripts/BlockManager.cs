@@ -5,10 +5,12 @@ using UnityEngine;
 public class BlockManager  {
 
     float blockFallRate = 2f;
+    float blockFallSpeedIncreasePerSec = .95f;
     float blockCurrentCounter;
+    float blockIncreaseRateCounter = 0;
     Vector2 blockSpawnScale = new Vector2(.55f, 2.1f);
     List<blockScript> blocks = new List<blockScript>();
-    float spawnHeight = 6; //How high above the highest block a block is spawned
+    float spawnHeight = 8; //How high above the highest block a block is spawned
 
 
     Vector2 xLimits;
@@ -22,6 +24,12 @@ public class BlockManager  {
     public void Update(float dt)
     {
         blockCurrentCounter -= Time.deltaTime;
+        blockIncreaseRateCounter += Time.deltaTime;
+        if(blockIncreaseRateCounter > 1)
+        {
+            blockIncreaseRateCounter = 0;
+            blockFallRate *= blockFallSpeedIncreasePerSec;
+        }
        // Debug.Log("counter: " + blockCurrentCounter);
         if (blockCurrentCounter <= 0)
         {
