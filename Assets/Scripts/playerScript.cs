@@ -17,13 +17,11 @@ public class playerScript : MonoBehaviour {
 	//Jump Limiters
 	private float grabJump = 0;
 	private float grabJumpDelay = 0.75f;
-	private float grabAfterGrabJump = 0.1f;
 	private float groundJump = 0;
 	private float groundJumpDelay = 0.2f;
 
 	//internal Vars
 	private float facingDir = -1;
-	private bool grounded = false;
 
 	//gameplay vars
 	private float horizontalJumpRatio = 0.5f;
@@ -126,7 +124,6 @@ public class playerScript : MonoBehaviour {
 				} else {
 					yForce = 0.2f;
 				}
-
 				body.AddForce (new Vector2 (xForce * normalDir.x * jumpForce * horizontalJumpRatio, normalDir.y * jumpForce * verticalJumpRatio * yForce));
 				animCnt.setJump ();
 				animCnt.setJumpAxis (new Vector2(normalDir.x * xForce, normalDir.y));

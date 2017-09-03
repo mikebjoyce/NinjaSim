@@ -48,7 +48,7 @@ public class animControl : MonoBehaviour {
 	}
 
 	public void setJumpAxis(Vector2 dir){
-		Debug.Log ("JumpAxis set with: " + dir);
+		//Debug.Log ("JumpAxis set with: " + dir);
 		playerAnim.SetFloat ("jumpX", Mathf.Abs(dir.normalized.x));
 		playerAnim.SetFloat ("jumpY", dir.normalized.y);
 	}
