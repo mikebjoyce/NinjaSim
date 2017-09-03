@@ -20,7 +20,7 @@ public class BlockManager  {
     public void Update(float dt)
     {
         blockCurrentCounter -= Time.deltaTime;
-        Debug.Log("counter: " + blockCurrentCounter);
+       // Debug.Log("counter: " + blockCurrentCounter);
         if (blockCurrentCounter <= 0)
         {
             Debug.Log("ici");

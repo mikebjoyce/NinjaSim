@@ -31,6 +31,7 @@ public class animControl : MonoBehaviour {
 		playerAnim.SetFloat("horizontal",Mathf.Abs(f));
 		hasMoved = true;
 	}
+		
 
 	public void setJump(){
 		if (!hasJumped) {
@@ -44,6 +45,12 @@ public class animControl : MonoBehaviour {
 				setJump ();
 			}
 		}
+	}
+
+	public void setJumpAxis(Vector2 dir){
+		Debug.Log ("JumpAxis set with: " + dir);
+		playerAnim.SetFloat ("jumpX", Mathf.Abs(dir.normalized.x));
+		playerAnim.SetFloat ("jumpY", dir.normalized.y);
 	}
 
 	public void setGrab(bool b){

@@ -30,6 +30,7 @@ public class playerScript : MonoBehaviour {
 	private float verticalJumpRatio = 1;
 	private float jumpForce = 375;
 	private float runForce = 450;
+	private float flyForce = 300;
 
 	// Use this for initialization
 	void Start () {
@@ -48,7 +49,10 @@ public class playerScript : MonoBehaviour {
 			animCnt.setGrab(false);
 		}
 		animCnt.setRunSpeed (runSpeed ());
-
+		if (Mathf.Abs(body.velocity.x) > 0.1 && isGrounded())
+			animCnt.setMove (1);
+		else
+			animCnt.setMove (0);
 //		Debug.Log (Time.time + " grab: " + grabJump + " reg: " + groundJump);
 	}
 
@@ -76,6 +80,8 @@ public class playerScript : MonoBehaviour {
 				jump (dir);
 				grabJump = Time.time;
 			}
+		} else {
+			body.AddForce (new Vector2 (flyForce*dir.normalized.x,0) * Time.deltaTime);
 		}
 	}
 
@@ -101,17 +107,29 @@ public class playerScript : MonoBehaviour {
 		if (d != facingDir && d != 0)
 			flip ();
 			*/
-		Vector2 temp = dir.normalized;
+		Vector2 normalDir = dir.normalized;
 		if (isGrounded ()) {
 			if (groundJump + groundJumpDelay < Time.time) {
-				body.AddForce (new Vector2 (temp.x * jumpForce * horizontalJumpRatio, temp.y * jumpForce * verticalJumpRatio));
+				body.AddForce (new Vector2 (normalDir.x * jumpForce * horizontalJumpRatio, normalDir.y * jumpForce * verticalJumpRatio));
 				animCnt.setJump ();
-				groundJump = Time.time;
+				animCnt.setJumpAxis (normalDir);
+				groundJump = grabJump = Time.time;
 			}
-		}else if(isGrabbing()){
+		} else if (isGrabbing ()) {
 			if (grabJump + grabJumpDelay < Time.time) {
-				body.AddForce (new Vector2 (temp.x * jumpForce * horizontalJumpRatio, temp.y * jumpForce * verticalJumpRatio));
+				float xForce = 0;
+				float yForce = 0.2f;
+				if (normalDir.y <= 0.95)
+					yForce = 1;
+				if (!isForwardDir (dir.x)) {
+					xForce = 1;
+				} else {
+					yForce = 0.2f;
+				}
+
+				body.AddForce (new Vector2 (xForce * normalDir.x * jumpForce * horizontalJumpRatio, normalDir.y * jumpForce * verticalJumpRatio * yForce));
 				animCnt.setJump ();
+				animCnt.setJumpAxis (new Vector2(normalDir.x * xForce, normalDir.y));
 				grabJump = Time.time;
 				//Debug.Log ("grab @ " + grabJump);
 			}
@@ -123,6 +141,13 @@ public class playerScript : MonoBehaviour {
 		facingDir *= -1;
 		animCnt.flip ();
 		//animCnt.setGrab (false);
+	}
+
+	public bool isForwardDir(float x){
+		if (x > 0)
+			return facingDir == 1;
+		else
+			return facingDir == -1;
 	}
 
 	public void jumpFlip(){
