@@ -30,24 +30,32 @@ public class playerScript : MonoBehaviour {
 	private float runForce = 450;
 	private float flyForce = 350;
 
+
 	// Use this for initialization
 	void Start () {
-		
+		Color playerColor = new Color (Random.Range (0, 1f), Random.Range (0, 1f), Random.Range (0, 1f));
+		foreach (SpriteRenderer sR in GetComponentsInChildren<SpriteRenderer>()) {
+			sR.color = playerColor;
+		}
 	}
 
 	// Update is called once per frameanimCnt
 	void Update () {
 		if (isGrabbing () && !isGrounded() && body.velocity.y < 0.5f) { //the slowing effect of grabbing
-			body.AddForce (new Vector2 (0, 455) * Time.deltaTime);
+			body.AddForce (new Vector2 (0, 450) * Time.deltaTime);
 			animCnt.setGrab (true);
-		}else if(isBackGrabbing() && !isGrounded() && body.velocity.y < 0){
+		}else if (isGrabbing () && !isGrounded() && body.velocity.y < -0.5f) { //the slowing effect of grabbing
+			body.AddForce (new Vector2 (0, 1000) * Time.deltaTime);
+			animCnt.setGrab (true);
+		}
+		else if(isBackGrabbing() && !isGrounded() && body.velocity.y < 0){
 			flip ();
 		}
 		else{
 			animCnt.setGrab(false);
 		}
 		animCnt.setRunSpeed (runSpeed ());
-		if (Mathf.Abs(body.velocity.x) > 0.1 && isGrounded())
+		if (Mathf.Abs (body.velocity.x) > 0.1 && isGrounded ())
 			animCnt.setMove (1);
 		else
 			animCnt.setMove (0);

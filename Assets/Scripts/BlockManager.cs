@@ -41,6 +41,7 @@ public class BlockManager  {
             newBlock.transform.position = spawnSpot;
             newBlock.transform.localScale = blockScale;
             blocks.Add(newBlock.GetComponent<blockScript>());
+			newBlock.GetComponent<SpriteRenderer> ().color = new Color (Random.Range (0, 1f), Random.Range (0, 1f), Random.Range (0, 1f));
         }
     }
 

@@ -9,8 +9,6 @@ public class animControl : MonoBehaviour {
 	private float timeAtGrounded = 0;
 	private bool isGrounded = false;
 
-	private bool hasMoved = false;
-
 	// Use this for initialization
 	void Start () {
 		
@@ -22,14 +20,11 @@ public class animControl : MonoBehaviour {
 	}
 
 	void LateUpdate(){
-		if (hasMoved == false)
-			setMove (0);
-		hasMoved = false;
+		
 	}
 
 	public void setMove(float f){
 		playerAnim.SetFloat("horizontal",Mathf.Abs(f));
-		hasMoved = true;
 	}
 		
 

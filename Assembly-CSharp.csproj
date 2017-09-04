@@ -52,6 +52,7 @@
      <Compile Include="Assets\Scripts\Menus\SceneTransition.cs" />
      <Compile Include="Assets\Scripts\animControl.cs" />
      <Compile Include="Assets\Scripts\blockScript.cs" />
+     <Compile Include="Assets\Scripts\blockSettler.cs" />
      <Compile Include="Assets\Scripts\main.cs" />
      <Compile Include="Assets\Scripts\playerScript.cs" />
      <Compile Include="Assets\input.cs" />
