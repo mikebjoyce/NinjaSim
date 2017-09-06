@@ -53,9 +53,9 @@
      <Compile Include="Assets\Scripts\animControl.cs" />
      <Compile Include="Assets\Scripts\blockScript.cs" />
      <Compile Include="Assets\Scripts\blockSettler.cs" />
+     <Compile Include="Assets\Scripts\input.cs" />
      <Compile Include="Assets\Scripts\main.cs" />
      <Compile Include="Assets\Scripts\playerScript.cs" />
-     <Compile Include="Assets\input.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
