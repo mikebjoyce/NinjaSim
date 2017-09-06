@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BlockManager  {
 
-    float blockFallRate = 2f;
-    float blockFallSpeedIncreasePerSec = .95f;
+    float blockFallRate = 1f;
+    float blockFallSpeedIncreasePerSec = .99f;
     float blockCurrentCounter;
     float blockIncreaseRateCounter = 0;
     Vector2 blockSpawnScale = new Vector2(.55f, 2.1f);
-    List<blockScript> blocks = new List<blockScript>();
-    float spawnHeight = 8; //How high above the highest block a block is spawned
+    public List<blockScript> blocks = new List<blockScript>();
+    float spawnHeight = 6; //How high above the highest block a block is spawned
 
 
     Vector2 xLimits;
@@ -68,7 +68,7 @@ public class BlockManager  {
         float y = 0;
         foreach (blockScript b in blocks)
         {
-            if(b.settled)
+           if(b.settled)
                 y = Mathf.Max(y, b.transform.position.y);
         }
         Debug.Log("Highest settled block: " + y);

@@ -10,7 +10,7 @@ public class blockScript : MonoBehaviour {
 
 	public PhysicsMaterial2D iron;
 	public PhysicsMaterial2D ice;
-	public PhysicsMaterial2D cloud;
+	public PhysicsMaterial2D wood;
 	public PhysicsMaterial2D slime;
 	public PhysicsMaterial2D coal;
 
@@ -27,31 +27,39 @@ public class blockScript : MonoBehaviour {
 		case 0: 
 			this.name = "Iron Block";
 			sprite.color = Color.gray;
-			body.mass = 1 * scaleMult;
+			body.mass = 2 * scaleMult;
+			body.drag = 2f;
 			body.sharedMaterial = iron;
 			break;
 		case 1:
 			this.name = "Ice Block";
 			sprite.color = Color.blue;
 			body.mass = 0.75f * scaleMult;
-			body.drag = 0f;
+			body.drag = 0.25f;
 			body.sharedMaterial = ice;
 			break;
 		case 2:
-			this.name = "Cloud Block";
+			this.name = "Slime Block";
+			sprite.color = Color.green;
+			body.mass = 0.5f * scaleMult;
+			body.drag = 0.5f;
+			body.sharedMaterial = slime;
+			break;
+		case 3:
+			this.name = "Wood Block";
+			sprite.color = Color.yellow;
+			body.mass = 1.25f * scaleMult;
+			body.drag = 5f;
+			body.sharedMaterial = wood;
+			break;
+		/* case 3:
+			//this.name = "Cloud Block";
 			sprite.color = Color.white;
 			body.mass = 0.2f * scaleMult;
 			body.gravityScale = 0.01f;
 			//body.freezeRotation = false;
 			body.sharedMaterial = cloud;
-			break;
-		case 3:
-			this.name = "Slime Block";
-			sprite.color = Color.green;
-			body.mass = 0.5f * scaleMult;
-			body.drag = 0.2f;
-			body.sharedMaterial = slime;
-			break;
+			break; */
 		case 4:
 			this.name = "Coal Block";
 			sprite.color = Color.black;
@@ -65,7 +73,7 @@ public class blockScript : MonoBehaviour {
 			body.mass = 0.2f * scaleMult;
 			body.gravityScale = 0.05f;
 			body.freezeRotation = false;
-			body.sharedMaterial = cloud;
+			body.sharedMaterial = iron;
 			break;
 		}
 	}

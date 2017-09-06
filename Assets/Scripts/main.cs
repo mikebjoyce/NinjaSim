@@ -12,6 +12,7 @@ public class main : MonoBehaviour {
 
     public Transform leftLimit, rightLimit;
     BlockManager blockManager;
+	public killer k;
 
 	// Use this for initialization
 	void Start ()
@@ -23,6 +24,7 @@ public class main : MonoBehaviour {
 		cam.backgroundColor = currentColor = randomColor ();
 		nextColor = randomColor ();
 		lastColorChange = 0;
+		k.bm = blockManager;
     }
 	
 	// Update is called once per frame

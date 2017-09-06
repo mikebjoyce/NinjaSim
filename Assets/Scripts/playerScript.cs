@@ -160,7 +160,7 @@ public class playerScript : MonoBehaviour {
 	}
 
 	public void die(){
-
+		Debug.Log ("Herererreererre!!");
 	}
 			
 
@@ -200,7 +200,7 @@ public class playerScript : MonoBehaviour {
 	}*/
 
 	void OnTriggerEnter2D (Collider2D other){ //checks for being crushed
-		if(crushCheck.IsTouching(other) && other.attachedRigidbody.velocity.y > 0)
+		if(crushCheck.IsTouching(other) && other.attachedRigidbody == null)
 			die();
 	}
 }

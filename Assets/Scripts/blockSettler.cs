@@ -15,7 +15,7 @@ public class blockSettler : MonoBehaviour {
 	void Update ()
     {
         alive += Time.deltaTime;
-		if(alive > 2 && rb.velocity.y <= .01f)
+		if(alive > 2 && rb.velocity.y >= 0)
         {
             GetComponent<blockScript>().settled = true;
             Destroy(this);
