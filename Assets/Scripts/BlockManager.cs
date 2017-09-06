@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BlockManager  {
 
-    float blockFallRate = 1f;
+    float blockFallRate = 2.5f;
     float blockFallSpeedIncreasePerSec = .99f;
     float blockCurrentCounter;
     float blockIncreaseRateCounter = 0;

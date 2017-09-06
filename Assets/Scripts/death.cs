@@ -11,15 +11,19 @@ public class death : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3 (p.x, p.y + 0.075f * Time.time);
+		transform.position = new Vector3 (p.x, p.y + 0.033f * Time.time);
 	}
 
 	void OnTriggerEnter2D (Collider2D other){
 		blockScript block = other.GetComponent<blockScript> ();
 		if (block != null) {
+			Rigidbody2D body = other.GetComponent<Rigidbody2D> ();
 			other.GetComponent<SpriteRenderer> ().color = Color.black;
-			other.GetComponent<Rigidbody2D> ().gravityScale = -0.1f;
-			other.GetComponent<Rigidbody2D> ().drag = 0.99f;
+			body.gravityScale = -0.2f;
+			body.drag = 1f;
+			body.freezeRotation = false;
+			body.mass *= 1f;
+			body.sharedMaterial = Resources.Load<PhysicsMaterial2D> ("Prefabs/Coal");
 		}
 	}
 
