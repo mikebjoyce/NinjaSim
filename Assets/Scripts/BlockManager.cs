@@ -4,45 +4,42 @@ using UnityEngine;
 
 public class BlockManager  {
 
-    float blockFallRate = 2.5f;
-    float blockFallSpeedIncreasePerSec = .99f;
-    float blockCurrentCounter;
-    float blockIncreaseRateCounter = 0;
-    Vector2 blockSpawnScale = new Vector2(.55f, 2.1f);
-    public List<blockScript> blocks = new List<blockScript>();
-    float spawnHeight = 6; //How high above the highest block a block is spawned
-
-
+    public Transform player;
+    public Transform blockSpawner;
+    float blockSpawnDistance = 9;                       //The min Y distance the block spawner is from the player
+    float blockSummonThreshold = 1;                     //At 1 point, a block is spawned
+    float blockFallRate = .3f;                          //How many points are adding every 1 second, once reaches "blockSummonThreshold" it summons a block (so .1f is once every 10 seconds)
+    float blockCurrentCounter;                          //Stores the current fall rate score accumalated
+    Vector2 blockSpawnScale = new Vector2(.55f, 2.1f);  //Scale the blocks will spawn
     Vector2 xLimits;
+    float blockFallRateIncreasePerDistance = .005f;      //For every meter up the spawner is, the blockFallRate is increased by that much
 
-    public BlockManager(Vector2 leftWall, Vector2 rightWall)
+    public BlockManager(Vector2 leftWall, Vector2 rightWall, Transform _player, Transform _blockSpawner)
     {
         blockCurrentCounter = blockFallRate;
         xLimits = new Vector2(leftWall.x, rightWall.x);
+        player = _player;
+        blockSpawner = _blockSpawner;
     }
 
     public void Update(float dt)
     {
-        blockCurrentCounter -= Time.deltaTime;
-        blockIncreaseRateCounter += Time.deltaTime;
-        if(blockIncreaseRateCounter > 1)
+        blockCurrentCounter += Time.deltaTime * (blockFallRate + (blockFallRateIncreasePerDistance*blockSpawner.position.y));
+        if(blockCurrentCounter >= blockSummonThreshold)
         {
-            blockIncreaseRateCounter = 0;
-            blockFallRate *= blockFallSpeedIncreasePerSec;
-        }
-       // Debug.Log("counter: " + blockCurrentCounter);
-        if (blockCurrentCounter <= 0)
-        {
-            blockCurrentCounter = blockFallRate;
+            if(blockSpawner.position.y - player.position.y < blockSpawnDistance)
+                blockSpawner.position = new Vector2(blockSpawner.position.x,player.position.y + blockSpawnDistance);
+            Debug.Log("Spawn rate: " + (blockFallRate + (blockFallRateIncreasePerDistance * blockSpawner.position.y)));
+            blockCurrentCounter -= blockSummonThreshold;
             GameObject newBlock = MonoBehaviour.Instantiate(Resources.Load("Prefabs/Block")) as GameObject;
             Vector2 blockScale = GetValidScale();
             newBlock.GetComponent<Rigidbody2D>().mass = blockScale.x * blockScale.y; 
             Vector2 spawnSpot = GetValidSpawnSpot(blockScale.x);
             newBlock.transform.position = spawnSpot;
             newBlock.transform.localScale = blockScale;
-            blocks.Add(newBlock.GetComponent<blockScript>());
 			//newBlock.GetComponent<SpriteRenderer> ().color = new Color (Random.Range (0, 1f), Random.Range (0, 1f), Random.Range (0, 1f));
 			newBlock.GetComponent<blockScript>().setBlockType();
+            MonoBehaviour.Destroy(newBlock.GetComponent<blockScript>());
         }
     }
 
@@ -58,20 +55,8 @@ public class BlockManager  {
     private Vector2 GetValidSpawnSpot(float xScale)
     {
         Vector2 spawnLoc = new Vector2();
-        spawnLoc.y = HighestYBlock() + spawnHeight;
+        spawnLoc.y = blockSpawner.position.y;
         spawnLoc.x = Random.Range(xLimits.x + xScale, xLimits.y - xScale);
         return spawnLoc;
-    }
-
-    private float HighestYBlock()
-    {
-        float y = 0;
-        foreach (blockScript b in blocks)
-        {
-           if(b.settled)
-                y = Mathf.Max(y, b.transform.position.y);
-        }
-        Debug.Log("Highest settled block: " + y);
-        return y;
     }
 }
