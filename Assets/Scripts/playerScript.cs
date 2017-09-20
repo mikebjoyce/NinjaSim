@@ -33,7 +33,9 @@ public class playerScript : MonoBehaviour {
 	private float flyForce = 350;
 	private float punchForce = 150;
 
-
+	public float healthPoints = 100f;
+	private bool dmgPerTick = false;
+	public Color origionalColor;
 
 	// Use this for initialization
 	void Start () {
@@ -68,6 +70,7 @@ public class playerScript : MonoBehaviour {
 
 	void LateUpdate(){
 		animCnt.setGrounded (isGrounded());
+		dmgPerTick = false;
 	}
 
 
@@ -211,8 +214,15 @@ public class playerScript : MonoBehaviour {
 		return crushCheck.IsTouchingLayers (0);
 	}*/
 
-	void OnTriggerEnter2D (Collider2D other){ //checks for being crushed
-		if(crushCheck.IsTouching(other) && other.attachedRigidbody == null)
-			die();
+	/*void OnTriggerEnter2D (Collider2D other){ //checks for being crushed
+		//if(crushCheck.IsTouching(other) && other.attachedRigidbody == null)
+		//	die();
+	}*/
+
+	public void loseHealth(float dmg){
+		if (!dmgPerTick) {
+			dmgPerTick = true;
+			healthPoints -= dmg;
+		}
 	}
 }

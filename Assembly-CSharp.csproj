@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Menus\RoundSetup.cs" />
      <Compile Include="Assets\Scripts\Menus\SceneTransition.cs" />
      <Compile Include="Assets\Scripts\animControl.cs" />
+     <Compile Include="Assets\Scripts\blockDecay.cs" />
      <Compile Include="Assets\Scripts\blockScript.cs" />
      <Compile Include="Assets\Scripts\blockSettler.cs" />
      <Compile Include="Assets\Scripts\death.cs" />
