@@ -9,7 +9,8 @@ public class main : MonoBehaviour {
 	private float colorChangeDuration = 3;
 	private float lastColorChange = 0;
 
-
+    public playerScript player;
+    public Transform blockSpawner;
     public Transform leftLimit, rightLimit;
     BlockManager blockManager;
 	public killer k;
@@ -19,12 +20,11 @@ public class main : MonoBehaviour {
     {
 		currentColor = randomColor();
 		nextColor = randomColor();
-        blockManager = new BlockManager(leftLimit.position, rightLimit.position);
+        blockManager = new BlockManager(leftLimit.position, rightLimit.position, player.transform, blockSpawner);
 		cam.clearFlags = CameraClearFlags.SolidColor;
 		cam.backgroundColor = currentColor = randomColor ();
 		nextColor = randomColor ();
 		lastColorChange = 0;
-		k.bm = blockManager;
     }
 	
 	// Update is called once per frame
