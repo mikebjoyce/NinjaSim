@@ -28,7 +28,7 @@ public class blockScript : MonoBehaviour {
 			this.name = "Iron Block";
 			sprite.color = Color.gray;
 			body.mass = 2 * scaleMult;
-			body.drag = 2f;
+			body.drag = 1.5f;
 			body.sharedMaterial = iron;
 			break;
 		case 1:
@@ -42,14 +42,14 @@ public class blockScript : MonoBehaviour {
 			this.name = "Slime Block";
 			sprite.color = Color.green;
 			body.mass = 0.5f * scaleMult;
-			body.drag = 0.5f;
+			body.drag = 0.75f;
 			body.sharedMaterial = slime;
 			break;
 		case 3:
 			this.name = "Wood Block";
 			sprite.color = Color.yellow;
 			body.mass = 1.25f * scaleMult;
-			body.drag = 5f;
+			body.drag = 2f;
 			body.sharedMaterial = wood;
 			break;
 		/* case 3:

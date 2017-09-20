@@ -42,6 +42,12 @@ public class animControl : MonoBehaviour {
 		}
 	}
 
+	public void setPunchAxis(Vector2 dir){
+		playerAnim.SetTrigger ("punch");
+		playerAnim.SetFloat ("punchX", Mathf.Abs(dir.normalized.x));
+		playerAnim.SetFloat ("punchY", dir.normalized.y);
+	}
+
 	public void setJumpAxis(Vector2 dir){
 		//Debug.Log ("JumpAxis set with: " + dir);
 		playerAnim.SetFloat ("jumpX", Mathf.Abs(dir.normalized.x));

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class death : MonoBehaviour {
 	Vector2 p;
+	float deathForce = 1000f;
 	// Use this for initialization
 	void Start () {
 		p = transform.position;
@@ -19,10 +20,12 @@ public class death : MonoBehaviour {
 		if (block != null) {
 			Rigidbody2D body = other.GetComponent<Rigidbody2D> ();
 			other.GetComponent<SpriteRenderer> ().color = Color.black;
-			body.gravityScale = -0.2f;
-			body.drag = 1f;
+			body.AddForce (Vector2.up * deathForce);
+			body.gravityScale *= -0.5f;
+			body.drag = 0.1f;
+			body.angularDrag = 0.175f;
 			body.freezeRotation = false;
-			body.mass *= 1f;
+			body.mass *= 4f;
 			body.sharedMaterial = Resources.Load<PhysicsMaterial2D> ("Prefabs/Coal");
 		}
 	}

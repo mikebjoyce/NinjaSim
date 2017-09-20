@@ -19,6 +19,8 @@ public class playerScript : MonoBehaviour {
 	private float grabJumpDelay = 0.75f;
 	private float groundJump = 0;
 	private float groundJumpDelay = 0.2f;
+	private float punchTime = 0;
+	private float punchTimeDelay = 2.5f;
 
 	//internal Vars
 	private float facingDir = -1;
@@ -29,6 +31,8 @@ public class playerScript : MonoBehaviour {
 	private float jumpForce = 375;
 	private float runForce = 450;
 	private float flyForce = 350;
+	private float punchForce = 150;
+
 
 
 	// Use this for initialization
@@ -48,7 +52,7 @@ public class playerScript : MonoBehaviour {
 			body.AddForce (new Vector2 (0, 1000) * Time.deltaTime);
 			animCnt.setGrab (true);
 		}
-		else if(isBackGrabbing() && !isGrounded() && body.velocity.y < 0){
+		else if(isBackGrabbing() && !isGrounded() && body.velocity.y < 0 && punchTime + (punchTimeDelay/2) <= Time.time){
 			flip ();
 		}
 		else{
@@ -70,12 +74,7 @@ public class playerScript : MonoBehaviour {
 	public void move(Vector2 dir){
 		float direction = dir.x;
 		if (isGrounded ()) {
-			float d = 0;
-			if (direction < 0)
-				d = -1;
-			else
-				d = 1;
-			//Debug.Log (d + " " + facingDir);
+			float d = Mathf.Sign(dir.x);
 			if (d != facingDir && d != 0)
 				flip ();
 			body.AddForce (new Vector2 (runForce, 0) * Time.deltaTime * facingDir);
@@ -91,7 +90,19 @@ public class playerScript : MonoBehaviour {
 		}
 	}
 
-	/*
+	public void punch(Vector2 dir){
+		if (punchTime + punchTimeDelay <= Time.time) {
+			punchTime = Time.time;
+			float d = Mathf.Sign(dir.x);
+			Debug.Log ("d"  + d + (d != facingDir && d != 0));
+			if (d != facingDir && d != 0)
+				flip ();
+			body.AddForce (new Vector2 (punchForce * dir.x, punchForce * dir.y));
+			animCnt.setPunchAxis (dir);
+		}
+	}
+
+	/* 
 	public void jump(){
 		if (isGrounded ()) {
 			body.AddForce (new Vector2 (0, 100));
@@ -105,14 +116,14 @@ public class playerScript : MonoBehaviour {
 	} */
 
 	public void jump(Vector2 dir){
-		/*float d = 0;
+		/* float d = 0;
 		if (dir.x < 0)
 			d = -1;
 		else
 			d = 1;
 		if (d != facingDir && d != 0)
 			flip ();
-			*/
+			 */
 		Vector2 normalDir = dir.normalized;
 		if (isGrounded ()) {
 			if (groundJump + groundJumpDelay < Time.time) {
@@ -146,6 +157,7 @@ public class playerScript : MonoBehaviour {
 		facingDir *= -1;
 		animCnt.flip ();
 		//animCnt.setGrab (false);
+		Debug.Log("flipped");
 	}
 
 	public bool isForwardDir(float x){

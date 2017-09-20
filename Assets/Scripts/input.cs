@@ -17,6 +17,11 @@ public class input : MonoBehaviour {
         //Debug.Log (Input.GetAxis ("Horizontal"));
         //Debug.Log (Input.GetAxis ("Jump"));
 
+		if (Input.GetMouseButtonDown (1)) {
+			Vector2 pressedLoc = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			player.punch(pressedLoc - (Vector2)transform.position);
+		}
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 pressedLoc = Camera.main.ScreenToWorldPoint(Input.mousePosition);
