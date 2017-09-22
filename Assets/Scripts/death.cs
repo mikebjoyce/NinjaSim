@@ -28,17 +28,22 @@ public class death : MonoBehaviour {
 			body.freezeRotation = false;
 			body.mass *= 4f;
 			body.sharedMaterial = Resources.Load<PhysicsMaterial2D> ("Prefabs/Coal");
+			other.tag = "BlackBlock";
+			other.gameObject.AddComponent<blockDecay> ();
 		}
 	}
 
 	void OnTriggerStay2D(Collider2D other){
 		if (other.CompareTag("Block"))
 		{ 
-			Rigidbody2D body = other.GetComponent<Rigidbody2D> ();
-			body.AddForce (Vector2.up * deathForce * Time.deltaTime);
+			//other.tag = "BlackBlock";
+			//other.gameObject.AddComponent<blockDecay> ();
+			//Rigidbody2D body = other.GetComponent<Rigidbody2D> ();
+			//body.AddForce (Vector2.up * deathForce * Time.deltaTime);
 			//double temp = body.mass * (1 - ((1 - 0.95) * Time.deltaTime));
 			//body.mass = temp;
-			body.mass *= (float) (1 - ((1 - 0.95) * Time.deltaTime));
+			//body.mass *= (float) (1 - ((1 - 0.95) * Time.deltaTime));
+
 		}else if(other.CompareTag("Player")){
 			List<SpriteRenderer> sr = new List<SpriteRenderer>(other.GetComponentsInChildren<SpriteRenderer> ());
 			playerScript ps = other.GetComponent<playerScript> ();

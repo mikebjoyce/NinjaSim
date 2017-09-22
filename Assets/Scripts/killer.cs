@@ -6,7 +6,7 @@ public class killer : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Block"))
+		if(other.CompareTag("Block") || other.CompareTag("BlackBlock"))
 			Destroy (other.gameObject);
 	}
 }

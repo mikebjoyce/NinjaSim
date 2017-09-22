@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\killer.cs" />
      <Compile Include="Assets\Scripts\main.cs" />
      <Compile Include="Assets\Scripts\playerScript.cs" />
+     <Compile Include="Assets\SpawnZone.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

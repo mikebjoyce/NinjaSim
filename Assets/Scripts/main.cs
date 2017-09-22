@@ -8,19 +8,19 @@ public class main : MonoBehaviour {
 	private Color nextColor;
 	private float colorChangeDuration = 3;
 	private float lastColorChange = 0;
-
     public playerScript player;
     public Transform blockSpawner;
     public Transform leftLimit, rightLimit;
     BlockManager blockManager;
 	public killer k;
+	public SpawnZone spawn;
 
 	// Use this for initialization
 	void Start ()
     {
 		currentColor = randomColor();
 		nextColor = randomColor();
-        blockManager = new BlockManager(leftLimit.position, rightLimit.position, player.transform, blockSpawner);
+		blockManager = new BlockManager(leftLimit.position, rightLimit.position, player.transform, blockSpawner, spawn);
 		cam.clearFlags = CameraClearFlags.SolidColor;
 		cam.backgroundColor = currentColor = randomColor ();
 		nextColor = randomColor ();
